@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -11,10 +11,10 @@ const Tab = createBottomTabNavigator();
 const MyTheme = {
   dark: false,
   colors: {
-    primary: "white",
-    background: "#232526",
+    primary: "black",
+    background: "white",
     card: "transparent",
-    text: "white",
+    text: "black",
     border: "transparent",
     notification: "#FF4545",
   },
@@ -22,28 +22,27 @@ const MyTheme = {
 export default function Navigation() {
   return (
     <NavigationContainer theme={MyTheme}>
-      <StatusBar backgroundColor={"black"} />
+      <StatusBar barStyle="dark-content" backgroundColor={"white"} />
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => screenOptions(route, color, size),
           tabBarShowLabel: false,
-          tabBarActiveTintColor: "white",
+          tabBarActiveTintColor: "black",
           tabBarInactiveTintColor: "grey",
           tabBarHideOnKeyboard: true,
           headerShown: false,
           tabBarStyle: {
-            position: "absolute",
             borderTopWidth: 0,
             elevation: 0,
           },
         })}
       >
+        <Tab.Screen name="MusicStack" component={MusicStack} options={{}} />
         <Tab.Screen
-          name="Player"
+          name="PlayerStack"
           component={PlayerStack}
           options={{ headerShadowVisible: false }}
         />
-        <Tab.Screen name="Music" component={MusicStack} options={{}} />
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -52,10 +51,10 @@ export default function Navigation() {
 function screenOptions(route, color) {
   let iconName;
   switch (route.name) {
-    case "Music":
+    case "MusicStack":
       iconName = "musical-notes-outline";
       break;
-    case "Player":
+    case "PlayerStack":
       iconName = "play-outline";
       break;
     default:
